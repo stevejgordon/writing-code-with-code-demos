@@ -1,0 +1,17 @@
+{
+  "types": [
+    {
+      "typeName": "FirstClass",
+      "properties": [
+        {
+          "type": "string",
+          "name": "Name"
+        }
+      ]
+    },
+    {
+      "typeName": "SecondClass",
+      "properties": []
+    }
+  ]
+}
