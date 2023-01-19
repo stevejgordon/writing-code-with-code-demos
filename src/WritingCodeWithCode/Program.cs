@@ -21,7 +21,7 @@ if (schema is null)
     throw new Exception("Unable to deserialise schema");
 
 var members = schema.Types.Select(t => CreateClass(t.TypeName, t.Properties)).ToArray()
-    ?? Array.Empty<MemberDeclarationSyntax>();
+    ?? Array.Empty<ClassDeclarationSyntax>();
 
 var ns = FileScopedNamespaceDeclaration(IdentifierName("CodeGen")).AddMembers(members);
 
