@@ -20,17 +20,16 @@ await using (var fileStream = File.OpenRead(Path.Combine(path, "spec.json")))
 if (schema is null)
     throw new Exception("Unable to deserialise schema");
 
-var members = schema.Types.Select(t => CreateClass(t.TypeName, t.Properties)).ToArray()
+var classDeclarations = schema.Types.Select(t => CreateClass(t.TypeName, t.Properties)).ToArray()
     ?? Array.Empty<ClassDeclarationSyntax>();
 
-var ns = FileScopedNamespaceDeclaration(IdentifierName("CodeGen")).AddMembers(members);
+var ns = FileScopedNamespaceDeclaration(IdentifierName("CodeGen")).AddMembers(classDeclarations);
 
 await using var streamWriter = new StreamWriter(@"c:\code-gen\generated.cs", false);
 
-ns.NormalizeWhitespace()
-    .WriteTo(streamWriter);
+ns.NormalizeWhitespace().WriteTo(streamWriter);
 
-static ClassDeclarationSyntax CreateClass(string name, IEnumerable<SchemaProperty> properties)
+static ClassDeclarationSyntax CreateClass(string name, IReadOnlyCollection<SchemaProperty> properties)
 {
 	var classDeclaration = ClassDeclaration(Identifier(name))
 		.AddModifiers(Token(SyntaxKind.PublicKeyword));

@@ -2,10 +2,10 @@
 
 public sealed class Schema
 {
-    public IReadOnlyCollection<SchemaTypes> Types { get; init; } = Array.Empty<SchemaTypes>();
+    public IReadOnlyCollection<SchemaType> Types { get; init; } = Array.Empty<SchemaType>();
 }
 
-public sealed class SchemaTypes
+public sealed class SchemaType
 {
     public string TypeName { get; init; } = string.Empty;
     public IReadOnlyCollection<SchemaProperty> Properties { get; init; } = Array.Empty<SchemaProperty>();
